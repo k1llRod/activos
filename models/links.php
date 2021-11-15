@@ -6,6 +6,7 @@ class linksModels{
 			$links == 'account_asset'||
 			$links == 'new_employee'||
 			$links == 'employee'||
+			$links == 'edit_account_asset'||
 			$links == 'assignment'){
 			$module = 'views/modules/'.$links.'.php';
 		}else if($links == 'index'){

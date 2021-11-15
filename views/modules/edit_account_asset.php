@@ -15,7 +15,7 @@ if(!$_SESSION['validate']){
   <section class="content-header">
     <h1>
       Activos fijos
-      <small>Lista: Ver activos fijos</small>
+      <small>Formulario: Nuevo activo</small>
     </h1>
   </section>
   <!-- Contenido principal -->
@@ -93,75 +93,47 @@ if(!$_SESSION['validate']){
 
         <div class="row">
 
-        	<div class="col-lg-12">
+        	<div class="col-lg-7">
 					 <div class="box box-primary">
 			            <div class="box-header with-border">
-			              <h3 class="box-title">Lista</h3>
+			              <h3 class="box-title">Nuevo Activo</h3>
 			            </div>
-						<table id="ver_account_asset" class="row-border hover" style="width:100%">
-							<thead>
-								<tr>
-									<th>N</th>
-									<th>Código</th>
-									<th>Descripción</th>
-									<th>Serie</th>
-									<th>Estado</th>
-									<th>U.M</th>
-									<th>Fecha registro</th>
-									<th>Código registro</th>
-									<th></th>    
-								</tr>
-							</thead>
-							<tbody id="body_table">
+			            <!-- /.box-header -->
+			            <!-- form start -->
+			            <form role="form" METHOD="POST" class="form-horizontal">
+			              <div class="box-body">
 
-							
-							
-							</tbody>
-							<tfoot>
-                                <tr>
+						  	<?php
+								$vier_asset = accountAssetController::view_account_asset($_GET['id_activos']);
 
-                                </tr>
-                            </tfoot>
-					</table>
-			           
-			           
-                   
+							  ?>
+			               
+			              </div>
+			              <!-- /.box-body -->
+
+			              <div class="box-footer">
+			                <button type="submit" class="btn btn-primary" name="new_asset">Guardar</button>
+			              </div>
+                    <?php
+                      $new = new accountAssetController();
+                      $new-> create_account_asset();
+                    ?>
 							
-			            
+			            </form>
 			          </div>
 			          <!-- /.box -->
 
 			         
         	</div>
+        	<div class="col-lg-5">
+        		 <!-- Calendar -->
+		         
+        	</div>
+              
+          
         
       	</div>
-		  <div class="modal fade" id="edit_account_asset">
-			<div class="modal-dialog">
-				<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Editar activo fijo</h4>
-				</div>
-				<div class="modal-body">
-					<form class="form-horizontal" id="formEditAccountAsset" METHOD="post">
-						<div class="box-body" id="modalEditAccountAsset">
-							
-							
-						</div>
-				</div>
-				<div class="modal-footer">
-					<button type="submit" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-					<a href="#"class="btn btn-info" id="ver_historial">Ver historial</a>
-					<button type="submit" class="btn btn-primary">Guardar cambios</button>
-					</form>
-				</div>
-				</div>
-				<!-- /.modal-content -->
-			</div>
-          <!-- /.modal-dialog -->
-        </div>
-        <!-- /.modal -->
+
          
 
   </section>

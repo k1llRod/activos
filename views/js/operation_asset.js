@@ -9,20 +9,7 @@ $(document).ready(function() {
         
         select: {
             style: 'multi'
-        },
-        responsive: {
-            breakpoints: [
-              {name: 'bigdesktop', width: Infinity},
-              {name: 'meddesktop', width: 1480},
-              {name: 'smalldesktop', width: 1280},
-              {name: 'medium', width: 1188},
-              {name: 'tabletl', width: 1024},
-              {name: 'btwtabllandp', width: 848},
-              {name: 'tabletp', width: 768},
-              {name: 'mobilel', width: 480},
-              {name: 'mobilep', width: 320}
-            ]
-          }
+        }
     });
     $('#ver_asignaciones tbody').on( 'click', 'tr', function () {
         $(this).toggleClass('selected');
@@ -31,6 +18,7 @@ $(document).ready(function() {
     $('#button').click(function(){
         var n = table.rows('.selected').ids().length;
         var ids = table.rows('.selected').ids();
+        var id_funcionario = $('#select_employee').val();
         var valor='';
         valor = ids[0];
         for(i=1; i<n; i++) {
@@ -38,5 +26,7 @@ $(document).ready(function() {
         }
         console.log(valor);
         $('#idAsignarActivo').val(valor);
+        console.log(id_funcionario);
+        $('#funcionario').val(id_funcionario); 
     });
 })

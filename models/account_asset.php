@@ -50,7 +50,7 @@ class accountAssetModel{
     }
 
     public function view_account_asset($id_asset){
-        $query = conexion::conectar()->prepare("SELECT a.id_activo, a.codigo, a.descripcion, a.serie, a.observaciones, a.id_estado, e.descripcion,a.id_unidad, um.nombre, um.sigla, au.id_funcionario, 
+        $query = conexion::conectar()->prepare("SELECT a.id_activo, a.codigo, a.descripcion, a.serie, a.observaciones, a.id_estado, e.descripcion estado,a.id_unidad, um.nombre, um.sigla, au.id_funcionario, 
         CONCAT(f.nombres,' ',f.apellidos) funcionario
         FROM activo a LEFT JOIN asig_activo ac ON a.id_activo = ac.id_activo
         LEFT JOIN asig_ubicacion au ON au.id_asig_ubicacion = ac.id_asig_ubicacion
@@ -59,13 +59,33 @@ class accountAssetModel{
         LEFT JOIN unidad_medida um ON um.id_unidad = a.id_unidad
         WHERE a.id_activo =:id_asset");
     
-        $query->bindParam(':id_asset',$id_asset, PDO::PARAM_STR);
+        $query->bindParam(':id_asset',$id_asset, PDO::PARAM_INT);
         $query->execute();
         $data = $query->fetchAll(PDO::FETCH_ASSOC);
         return $data;
         #echo json_encode($data);
         $query -> close();
     }
+
+    public function updated_account_asset($data){
+        $query = conexion::conectar()->prepare("UPDATE `activo` 
+        SET `codigo`=:codigo,`descripcion`=:descripcion,`serie`=:serie,`observaciones`=:observaciones,`id_estado`=:estado,`id_unidad`=:unidad_medida
+        WHERE id_activo =:id_asset");
+    
+        $query->bindParam(':id_asset',$data['id_asset'], PDO::PARAM_INT);
+        $query->bindParam(':codigo',$data['codigo'], PDO::PARAM_STR);
+        $query->bindParam(':descripcion',$data['descripcion'], PDO::PARAM_STR);
+        $query->bindParam(':serie',$data['serie'], PDO::PARAM_STR);
+        $query->bindParam(':observaciones',$data['observaciones'], PDO::PARAM_STR);
+        $query->bindParam(':estado',$data['estado'], PDO::PARAM_INT);
+        $query->bindParam(':unidad_medida',$data['unidad_medida'], PDO::PARAM_INT);
+        //$query->bindParam(':fecha_registro',$data['fecha_registro'], PDO::PARAM_STR);
+        //$query->bindParam(':codigo_registro',$data['codigo_registro'], PDO::PARAM_STR);
+
+        $query->execute();
+        return $query;
+        $query->close;
+    }   
 
     
 

@@ -23,7 +23,7 @@ if(!$_SESSION['validate']){
         
         <div class="row">
 
-        	<div class="col-lg-6">
+        	<div class="col-lg-12">
 					 <div class="box box-primary">
 			            <div class="box-header with-border">
 			              <h3 class="box-title">Buscar</h3>
@@ -77,7 +77,7 @@ if(!$_SESSION['validate']){
 			          </div>
 
 					  <div class="box box-info">
-						<div class="box-header with-border col-lg-6">
+						<div class="box-header with-border col-lg-12">
 							<h3 class="box-title">Lista de asignaciones</h3>
 							<button type="button"  id="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#crear_acta">Crear acta</button>
 							</div>
@@ -92,7 +92,7 @@ if(!$_SESSION['validate']){
 			         
         	</div>
 
-			<div class="col-lg-6">
+			<div class="col-lg-12">
 
 				<?php
 					include_once 'views/modules/timeline.php';
@@ -118,6 +118,7 @@ if(!$_SESSION['validate']){
 						
 						<div class="modal-body" id="modalAsiActivo">
 							<form class="form-horizontal" METHOD="POST">
+								<input type="hidden" name="funcionario" id="funcionario">
 								<div class="box-body">
 									<div class="form-group">
 										<label for="idAsignarActivo" class="col-sm-2 control-label">IDS</label>

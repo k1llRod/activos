@@ -1,5 +1,4 @@
 <?php
-
 class configurationController{
         public function view_unit(){
             $answer = configurationModel::view_unit();

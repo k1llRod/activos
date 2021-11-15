@@ -36,7 +36,6 @@
   <link rel="stylesheet" href="views/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
   <link rel="stylesheet" href="views/css/styles.css">
-  
 
   <link rel="stylesheet" media="only screen and (max-width:768px)" href="views/css/arregloResponsive.css">
   <link rel="stylesheet"
@@ -116,17 +115,12 @@
 <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
 
 
-
-
-
-
-
-
 <script src="views/js/validacionUsuario.js"></script>
 <script src="views/js/botonArchivo.js"></script>
 <script src="views/js/validarFormularios.js"></script>
 <script src="views/js/maximizar.js"></script>
 <script src="views/js/account_asset.js"></script>
+
 
 <script>
   option='asd';

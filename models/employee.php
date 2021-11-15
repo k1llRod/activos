@@ -22,6 +22,17 @@ class employeeModel{
         return $query;
         $query->close();
     }
+
+    public function data_employee($data){
+        $query = conexion::conectar()->prepare("SELECT * FROM `funcionario` WHERE id_funcionario=:id_funcionario");
+
+        $query->bindParam(':id_funcionario',$data, PDO::PARAM_INT);
+       
+        // $query->execute();
+        $query->execute();
+        return $query;
+        $query -> close;
+    }
 }
 
 

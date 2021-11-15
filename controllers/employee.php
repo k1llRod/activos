@@ -59,6 +59,16 @@ class employeeController{
             echo "<option value='".$row['id_funcionario']."'>".$row['nombres']." ".$row['apellidos']."</option>";
         }
     }
+    public function data_employee(){
+        if(isset($_GET['id_funcionario'])){
+            $data = $_GET['id_funcionario'];
+
+            $answer = employeeModel::data_employee($data);
+            
+            return $answer;
+
+        }
+    }
 
 }
 

@@ -28,8 +28,35 @@ $(document).ready(function() {
         createActa();
     })
     //table_account_asset();
+    
 })
+function asset_state(){
+    $.ajax({
+        url:'views/ajax/account_asset.php',
+		method:"POST",
+		data: 'state=state',
+		success:function(r){
+             console.log(r);
+             $('#inputEstado').append(r);
+           
+        },
+       
+    });
+}
 
+function unidad(){
+    $.ajax({
+        url:'views/ajax/account_asset.php',
+		method:"POST",
+		data: 'unidad=unidad',
+		success:function(r){
+             console.log(r);
+             $('#inputUnidad').append(r);
+           
+        },
+       
+    });
+}
 $(document).on('click',".btnEditAccountAsset",function(){
     fila = $(this).closest("tr");
     id_asset = parseInt(fila.find('td:eq(0)').text());
@@ -53,31 +80,53 @@ $(document).on('click',".btnEditAccountAsset",function(){
 		data:{'id_asset':id_asset},
 		success:function(r){
             console.log(r);
-            console.log(r.codigo);
-            
-			//$('#location_general').html(r);
+		    $('#modalEditAccountAsset').html(r);
+            asset_state();
+            unidad();
+            $("#ver_historial").attr('href', "index.php?action=edit_account_asset&id_activos="+id_asset);
         }
     });
     console.log(id_asset);
 });
 $('#formEditAccountAsset').submit(function(e){
     e.preventDefault();
+    var table = $("#ver_account_asset").DataTable();
+    id_activo = $.trim($("#id_activo").val());
     codigo = $.trim($('#codigo').val());
     descripcion = $.trim($('#descripcion').val());
     serie = $.trim($('#serie').val());
-    estado = $.trim($('#estado').val());
-    unidad_medida = $.trim($('#unidad_medida').val());
+    estado = $.trim($('#inputEstado').val());
+    unidad_medida = $.trim($('#inputUnidad').val());
+    observaciones = $.trim($('#observaciones').val());
     fecha_registro = $.trim($('#fecha_registro').val());
     codigo_registro = $.trim($('#codigo').val());
     $.ajax({
         url:'views/ajax/account_asset.php',
 		method:"POST",
-		data:{'id_asset':id_asset, 'codigo':codigo, 'descripcion': descripcion, 'serie': serie, 'estado': estado, 
-                'unidad_medida': unidad_medida, 'fecha_registro': fecha_registro, 'codigo_registro': codigo_registro},
+		data:{'id_activo':id_activo, 'codigo':codigo, 'descripcion': descripcion, 'serie': serie, 'estado': estado, 
+                'unidad_medida': unidad_medida, 'observaciones': observaciones,'fecha_registro': fecha_registro, 'codigo_registro': codigo_registro},
 		success:function(r){
-            //console.log(r);
-			$('#location_general').html(r);
+            console.log(r);
+            
+            swal({
+                title: "OK!",
+                text: "Activo actualizado!!",
+                type: "success",
+                confirmButtonText: "Cerrar",
+                closeOnConfirm: false,
+                });
+            table.ajax.reload(null, false);
+             },
+        error:function(){
+            swal({
+                title: "Error!",
+                text: "Error al actualizar el activo!",
+                type: "success",
+                confirmButtonText: "Cerrar",
+                closeOnConfirm: false,
+                });
         }
+        
     });
 
 });
@@ -102,6 +151,7 @@ function chargeEspecifica(){
 		success:function(r){
             //console.log(r);
 			$('#location_especifica').html(r);
+           
         }
     });
 }
@@ -140,7 +190,7 @@ function createActa() {
 		data: datos,
 		success:function(r){
 			chargeTableAsignacion();
-            $("#actaPdf").attr("href","tcpdf/pdf/actas_asignacion.php?ids="+$("#idAsignarActivo").val());
+            $("#actaPdf").attr("href","tcpdf/pdf/actas_asignacion.php?ids="+$("#idAsignarActivo").val()+'&id_funcionario='+$("#select_employee").val());
             $("#actaPdf").removeClass("disabled");
             console.log("FUNCIONA ASIGNACION: ", r);
             
@@ -186,5 +236,6 @@ function table_account_asset(){
     });
 }
 
+//asset_state();
 
 

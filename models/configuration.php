@@ -1,5 +1,5 @@
 <?php
-
+require_once "conexion.php";
 class configurationModel{
     public function view_unit(){
         $query = conexion::conectar()->prepare("SELECT * FROM unidad_medida");

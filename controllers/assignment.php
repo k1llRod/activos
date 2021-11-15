@@ -68,7 +68,39 @@ class assignmentController{
                                 </tr>
                             </tfoot>
                         </table>
-                        <script src='views/js/operation_asset.js'></script>";
+                        <script>
+                        $(document).ready(function() {
+                            var table = $('#ver_asignaciones').DataTable({
+                                dom: 'Bfrtip',
+                                buttons: [
+                                    'selectAll',
+                                    'selectNone'
+                                ],
+                                
+                                select: {
+                                    style: 'multi'
+                                }
+                            });
+                            $('#ver_asignaciones tbody').on( 'click', 'tr', function () {
+                                $(this).toggleClass('selected');
+                            } );
+                            
+                            $('#button').click(function(){
+                                var n = table.rows('.selected').ids().length;
+                                var ids = table.rows('.selected').ids();
+                                var id_funcionario = $('#select_employee').val();
+                                var valor='';
+                                valor = ids[0];
+                                for(i=1; i<n; i++) {
+                                    valor = valor+ ',' + ids[i];
+                                }
+                                console.log(valor);
+                                $('#idAsignarActivo').val(valor);
+                                console.log(id_funcionario);
+                                $('#funcionario').val(id_funcionario); 
+                            });
+                        })
+                        </script>";
 
         echo $constructor;            
     }
@@ -148,10 +180,10 @@ class assignmentController{
         $c = 1;
         foreach ($answer as $row){
             $constructor .= '<tr>
-                <td style="border: 1px solid #666;">'.$c.'</td>
-                <td style="border: 1px solid #666;">'.$row['unidad_medida'].'</td>
+                <td style="border: 1px solid #666; width: 25px;">'.$c.'</td>
+                <td style="border: 1px solid #666; width: 70px;">'.$row['unidad_medida'].'</td>
                 <td style="border: 1px solid #666;">'.$row['codigo'].'</td>
-                <td style="border: 1px solid #666;">'.$row['descripcion'].'</td>
+                <td style="border: 1px solid #666; width: 200px;">'.$row['descripcion'].'</td>
                 <td style="border: 1px solid #666;">'.$row['serie'].'</td>
                 <td style="border: 1px solid #666;">'.$row['estado_activo'].'</td>
             </tr>';
