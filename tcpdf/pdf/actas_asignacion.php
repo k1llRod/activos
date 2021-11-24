@@ -112,6 +112,14 @@ foreach($funcionario as $row => $item){
     $cargo =$item['cargo'];
     $estado = $item['estado'];
     $dependencia = $item['dependencia'];
+    $ci = $item['ci'];
+}
+
+if(isset($_GET['fecha'])){
+    $fecha = $_GET['fecha'];
+    $date = new DateTime($fecha);
+    $d = $date->format('d-m-Y');
+
 }
 
 $html1 = <<<EOF
@@ -121,9 +129,9 @@ $html1 = <<<EOF
             <td width="100%" colspan="4" style="text-align:center; font-family:Monotype Corsiva; font-size:14px; height: 30px;"><strong>Acta de Asignación</strong></td>
         </tr>
         <tr>
-            <td width="100%" colspan="4" style="text-align:justify;">En la ciudad de La Paz, en fecha [fecha de entrega], el Área de Activos Fijos de la Unidad de Servicios Administrativos dependiente de
+            <td width="100%" colspan="4" style="text-align:justify;">En la ciudad de La Paz, en fecha $d, el Área de Activos Fijos de la Unidad de Servicios Administrativos dependiente de
             la Dirección de Administración y Servicios del Instituto Nacional de Estadística, realiza la ENTREGA de los bienes de uso al Sr.(a):
-             $nombre_completo $cargo $dependencia, de acuerdo al siguiente detalle:</td>
+             $nombre_completo, con C.I. $ci. $cargo $dependencia, de acuerdo al siguiente detalle:</td>
             
         </tr>
     </table>
@@ -134,7 +142,7 @@ EOF;
 $pdf->writeHTML($html1, false, false, false, false, '');
 
 $html3 = <<<EOF
-	<table style="border: 1px solid #333; text-align:center; line-height: 20px; font-size:10px">
+	<table style="border: 1px solid #333; text-align:center; line-height: 20px; font-size:8px">
 		<tr>
 			<td style="border: 1px solid #666; width:25px; vertical-align: middle;">Nro</td>
 			<td style="border: 1px solid #666; width: 70px;">Unidad</td>
@@ -142,6 +150,7 @@ $html3 = <<<EOF
             <td style="border: 1px solid #666; width:200px;">Descripción</td>
             <td style="border: 1px solid #666;">Serie</td>
             <td style="border: 1px solid #666; vertical-align: middle;">Estado</td>
+            <td style="border: 1px solid #666; vertical-align: middle;">Ubicación</td>
 		</tr>
 	</table>
 

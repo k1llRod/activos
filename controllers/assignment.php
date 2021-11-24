@@ -186,6 +186,7 @@ class assignmentController{
                 <td style="border: 1px solid #666; width: 200px;">'.$row['descripcion'].'</td>
                 <td style="border: 1px solid #666;">'.$row['serie'].'</td>
                 <td style="border: 1px solid #666;">'.$row['estado_activo'].'</td>
+                <td style="border: 1px solid #666;">'.$row['ubicacion'].'</td>
             </tr>';
         $c ++;
         }
@@ -224,6 +225,40 @@ class assignmentController{
         }
         echo $constructor;
 
+    }
+
+    public function timeline_asset(){
+        if(isset($_GET['id_activos'])){
+            $data = $_GET['id_activos'];
+        }
+        $answer = assignmentModels::timeline_asset($data);
+        $constructor = '';
+        foreach ($answer as $row){
+
+            $constructor .=' <!-- timeline time label -->
+                                <li class="time-label">
+                                    <span class="bg-red">
+                                        '.$row['fecha_registro'].'
+                                    </span>
+                                </li>
+                                <!-- /.timeline-label -->';
+            $constructor .= ' <!-- timeline item -->
+                                <li>
+                                <i class="fa fa-user bg-aqua"></i>
+                        
+                                <div class="timeline-item">
+                                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                        
+                                    <h3 class="timeline-header no-border"><a href="#">'.$_SESSION['name'].' </a> asigno un nuevo activo fijo al usuario <a href="#">'.$row['usuario'].' </a></h3>
+                                    <div class="timeline-body">
+                                    <b>Código de registro: </b> '.$row['codigo_registro'].'
+                                    </div>
+                                </div>
+                                </li>
+                                <!-- END timeline item -->';
+            
+        }
+        echo $constructor;
     }
 
     

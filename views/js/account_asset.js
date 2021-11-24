@@ -190,7 +190,7 @@ function createActa() {
 		data: datos,
 		success:function(r){
 			chargeTableAsignacion();
-            $("#actaPdf").attr("href","tcpdf/pdf/actas_asignacion.php?ids="+$("#idAsignarActivo").val()+'&id_funcionario='+$("#select_employee").val());
+            $("#actaPdf").attr("href","tcpdf/pdf/actas_asignacion.php?ids="+$("#idAsignarActivo").val()+'&id_funcionario='+$("#select_employee").val()+'&fecha='+$('#datepicker').val());
             $("#actaPdf").removeClass("disabled");
             console.log("FUNCIONA ASIGNACION: ", r);
             

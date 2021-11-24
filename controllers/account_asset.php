@@ -113,6 +113,16 @@ class accountAssetController{
                 </div>
             </div>
             <div class="form-group">
+                <label for="funcionario" class="col-sm-2 control-label">Funcionario</label>
+                <div class="col-sm-10">
+                    <select class="form-control" name="funcionario" id="funcionario">
+                        <option value="'.$row['id_funcionario'].'">'.$row['funcionario'].'</option>';
+                        //$unit = new configurationController();
+                        //$unit -> view_unit();
+        echo '</select>
+                </div>
+            </div>    
+            <div class="form-group">
             <label for="descripcion" class="col-sm-2 control-label">Descripción</label>
                 <div class="col-sm-10">
                     <textarea class="form-control" rows="3" id="descripcion" name="descripcion" placeholder="Enter ...">'.$row['descripcion'].'</textarea>

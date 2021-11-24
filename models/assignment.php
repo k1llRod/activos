@@ -94,7 +94,7 @@ class assignmentModels{
 
     public function tabla_asignacion($query){
         $totalQuery = "SELECT a.id_activo,a.codigo ,a.descripcion, a.serie, e.descripcion estado_activo, um.nombre unidad_medida ,ac.id_asignar_activo, ac.fecha_registro, ac.codigo_registro, au.id_funcionario, f.ci, CONCAT(f.nombres,' ',f.apellidos)nombre_completo, f.cargo,
-        ua.id_area, ua.descripcion area, ue.id_especifica, ue.descripcion especifica, ug.id_ubicacion, ug.descripcion general
+        ua.id_area, ua.descripcion area, ue.id_especifica, ue.descripcion especifica, ug.id_ubicacion, ug.descripcion general, CONCAT(ug.descripcion,'-',ue.descripcion,'-',ua.descripcion) ubicacion
         FROM asig_activo ac LEFT JOIN asig_ubicacion au ON ac.id_asig_ubicacion = au.id_asig_ubicacion
         LEFT JOIN funcionario f ON f.id_funcionario = au.id_funcionario
         LEFT JOIN ubi_area ua ON ua.id_area = au.id_area
@@ -122,6 +122,20 @@ class assignmentModels{
         $queryExe->execute();
         return $queryExe->fetchAll();
         $queryExe->close();
+    }
+
+    public function timeline_asset($data){
+        $totalQuery = "SELECT aa.id_asignar_activo, aa.id_activo, aa.fecha_registro, aa.codigo_registro, hac.id_historico_asignar, hac.id_funcionario, hac.id_user,
+        CONCAT(f.nombres,' ',f.apellidos) funcionario, CONCAT(u.nombres,' ',u.apellidos) usuario
+        FROM asig_activo aa LEFT JOIN historico_asig_activo hac ON aa.id_asignar_activo = hac.id_asignar_activo
+        LEFT JOIN funcionario f ON f.id_funcionario = hac.id_funcionario
+        LEFT JOIN users u ON u.id_user = hac.id_user
+        WHERE aa.id_activo=:id_activo";
+        $queryExe = conexion::conectar()->prepare($totalQuery);
+        $queryExe->bindParam(':id_activo',$data,PDO::PARAM_INT);
+        $queryExe->execute();
+        return $queryExe->fetchAll();
+        $queryExe->close;
     }
 
 }
