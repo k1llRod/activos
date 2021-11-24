@@ -8,8 +8,13 @@ require_once('tcpdf_include.php');
 
 class MYPDF extends TCPDF {
     //Page header
-
     public function Header() {
+
+        if(isset($_GET['codeActa'])){
+            $codeActa = $_GET['codeActa'];
+        }else{
+            $_GET['codeActa'] = '';
+        }
         $this->SetY(15);
         // Logo
         $image_file = K_PATH_IMAGES.'logo_ine.jpg';
@@ -24,7 +29,7 @@ class MYPDF extends TCPDF {
         $this->Cell(50, 5, '', 0, 0, 'C', 0, 0, 0, 0, 'T', 'C');
         $this->Cell(45, 5, '', 0, 0, 'C', 0, 0, 0, 0, 'T', 'C');
         #$this->SetFont('helvetica', 'BU', 7);
-        $this->Cell(55, 5, 'INE-AF-AA-N: 0727/2021', 0, 1, 'C', 0, 0, 0, 0, 'T', 'C');
+        $this->Cell(55, 5, 'INE-AF-AA-N: '.$codeActa, 0, 1, 'C', 0, 0, 0, 0, 'T', 'C');
      
         $this->SetX(40);
         $this->SetFont('helvetica', 'N', 7);
