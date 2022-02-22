@@ -1,6 +1,4 @@
 <?php
-session_start();
-
 class assignmentController{
     public function select_location_area($data,$data1){
         $answer = assignmentModels::select_location_area($data,$data1);
@@ -36,7 +34,7 @@ class assignmentController{
     public function table_asignaciones($data,$data1){
         $answer = assignmentModels::table_asignaciones($data,$data1);
         $constructor = '
-                    <table id="ver_asignaciones" class="table table-striped dt-responsive display nowrap">
+                    <table id="ver_asignaciones" class="table">
                         <thead>
                             <tr>
                                 <th>N</th>

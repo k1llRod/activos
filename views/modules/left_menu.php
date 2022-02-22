@@ -58,6 +58,7 @@
         <li><a href="assignment"><i class="fa fa-tachometer fa-fw"></i> <span>Asignaciones</span></a></li>
     
         <li><a href="configuracion"><i class="fa fa-tachometer fa-fw"></i> <span>Configuracion</span></a></li>
+        <li><a href="salir"><i class="fa fa-tachometer fa-fw"></i> <span>Salir</span></a></li>
       </ul>
     </section>
     <!-- /.sidebar -->

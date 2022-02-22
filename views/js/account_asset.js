@@ -8,7 +8,7 @@ $(document).ready(function() {
     chargeEspecifica();
     $("#location_general").change(function(){
         chargeEspecifica();
-        //console.log('especifico');
+        console.log('especifico');
     })
 
     chargeArea();
@@ -137,7 +137,7 @@ function chargeGeneral(){
 		method:"POST",
 		data:'id_employee='+$('#select_employee').val(),
 		success:function(r){
-            //console.log(r);
+            console.log(r);
 			$('#location_general').html(r);
         }
     });

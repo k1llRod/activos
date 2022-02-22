@@ -123,6 +123,7 @@
 
 
 <script>
+  
   option='asd';
   $("#datepicker").datepicker({});
   table_account_asset = $("#ver_account_asset").DataTable({
