@@ -54,10 +54,19 @@
             <li><a href="employee"><i class="fa fa-circle-o"></i> Ver funcionarios</a></li>
           </ul>
         </li>
-
-        <li><a href="assignment"><i class="fa fa-tachometer fa-fw"></i> <span>Asignaciones</span></a></li>
-    
-        <li><a href="configuracion"><i class="fa fa-tachometer fa-fw"></i> <span>Configuracion</span></a></li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Asignaciones</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="assignment"><i class="fa fa-circle-o"></i> Asignaciones funcionarios</a></li>
+            <li><a href="account_assignment"><i class="fa fa-circle-o"></i> Asignaciones activos</a></li>
+          </ul>
+        </li>
+        <li><a href="config"><i class="fa fa-tachometer fa-fw"></i> <span>Configuracion</span></a></li>
         <li><a href="salir"><i class="fa fa-tachometer fa-fw"></i> <span>Salir</span></a></li>
       </ul>
     </section>

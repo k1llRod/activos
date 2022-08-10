@@ -18,7 +18,7 @@ class accountAssetModel{
         return $query;
         $query -> close();
     }
-    public function list_account_asset($a){
+    public static function list_account_asset($a){
         $query = conexion::conectar()->prepare("SELECT a.id_activo, a.codigo, a.descripcion, a.serie, a.observaciones, a.id_estado, e.descripcion estado, a.id_unidad, um.nombre, um.sigla, aa.id_asignar_activo, 
         aa.fecha_registro, aa.codigo_registro
         FROM activo a LEFT JOIN estado e ON a.id_estado = e.id_estado
@@ -87,8 +87,25 @@ class accountAssetModel{
         $query->close;
     }   
 
-    
+    public static function view_account_asset_assignment(){
+        $query = conexion::conectar()->prepare("SELECT * FROM activo");
+        //$query->bindParam(':id_asset',$data['id_asset'], PDO::PARAM_INT);
+        $query->execute();
+        $data = $query->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+        $query->close();
+    }
 
+    /* public static function updated_code_acta($codigo_registro){
+        $query = conexion::conectar()->prepare("UPDATE `activo` 
+        SET `codigo`=:codigo WHERE id_activo =:id_asset");
+    
+        $query->bindParam(':id_asset',$data['id_asset'], PDO::PARAM_INT);
+        $query->bindParam(':codigo',$data['codigo'], PDO::PARAM_STR);
+        $query->execute();
+        return $query;
+        $query->close;
+    } */
 }
 
 ?>

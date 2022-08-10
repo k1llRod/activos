@@ -1,6 +1,30 @@
 <?php
 class assignmentController{
-    public function select_location_area($data,$data1){
+    public static function ciudad(){
+        $answer = assignmentModels::ciudad();
+        $constructor = '';
+        $constructor.= '
+            <select class="form-control" name="ciudad" id="ciudad">
+                <option value="">Seleccionar ciudad</option>';
+        foreach ($answer as $row => $item){
+            $constructor.='<option value="'.$item['id_ciudad'].'">'.$item['nombre'].'</option>';
+        }
+        $constructor .= '</select>';
+        echo $constructor;
+    }
+    public static function ubicacion_area(){
+        $answer = assignmentModels::ubicacion_area();
+        $constructor = '';
+        $constructor.= '
+            <select class="form-control" name="ubicacion_general" id="ubicacion_general">
+                <option value="">Seleccionar</option>';
+        foreach ($answer as $row => $item){
+            $constructor.='<option value="'.$item['id_area'].'">'.$item['descripcion'].'</option>';
+        }
+        $constructor .= '</select>';
+        echo $constructor;
+    }
+    public static function select_location_area($data,$data1){
         $answer = assignmentModels::select_location_area($data,$data1);
         $constructor = '';
         $constructor.= '<option value="">Seleccionar</option>';
@@ -10,8 +34,7 @@ class assignmentController{
         echo $constructor;
 
     }
-
-    public function select_location_especifica($data){
+    public static function select_location_especifica($data){
         $answer = assignmentModels::select_location_especifica($data);
         $constructor = '';
         $constructor.= '<option value="">Seleccionar</option>';
@@ -21,7 +44,17 @@ class assignmentController{
         echo $constructor;
     }
 
-    public function select_location_general($data){
+    public static function select_location_especifica_asset($data){
+        $answer = assignmentModels::select_location_especifica_asset($data);
+        $constructor = '';
+        $constructor.= '<option value="">Seleccionar</option>';
+        foreach ($answer as $row => $item){
+            $constructor.='<option value="'.$item['id_especifica'].'">'.$item['descripcion'].'</option>';
+        }
+        echo $constructor;
+    }
+
+    public static function select_location_general($data){
         $answer = assignmentModels::select_location_general($data);
         $constructor = '';
         $constructor.= '<option value="">Seleccionar</option>';
@@ -31,7 +64,26 @@ class assignmentController{
         echo $constructor;
     }
 
-    public function table_asignaciones($data,$data1){
+    public static function select_ubicacion_area($data){
+        $answer = assignmentModels::select_ubicacion_area($data);
+        $constructor = '';
+        $constructor.= '<option value="">Seleccionar</option>';
+        foreach ($answer as $row => $item){
+            $constructor.='<option value="'.$item['id_area'].'">'.$item['descripcion'].'</option>';
+        }
+        echo $constructor;
+    }
+    public static function select_employee($data){
+        $answer = assignmentModels::select_employee($data);
+        $constructor = '';
+        $constructor.= '<option value="">Seleccionar</option>';
+        foreach ($answer as $row => $item){
+            $constructor.='<option value="'.$item['id_funcionario'].'">'.$item['nombres'].' '.$item['apellidos'].'.</option>';
+        }
+        echo $constructor;
+    }
+
+    public static function table_asignaciones($data,$data1){
         $answer = assignmentModels::table_asignaciones($data,$data1);
         $constructor = '
                     <table id="ver_asignaciones" class="table">
@@ -94,7 +146,7 @@ class assignmentController{
                                 }
                                 console.log(valor);
                                 $('#idAsignarActivo').val(valor);
-                                console.log(id_funcionario);
+                                //console.log(id_funcionario);
                                 $('#funcionario').val(id_funcionario); 
                             });
                         })
@@ -103,7 +155,7 @@ class assignmentController{
         echo $constructor;            
     }
     
-    public function create_acta($data){
+    public static function create_acta($data){
         #echo 'Controlador'.$data['idAsignarActivo'];
         $array = explode(',',$data['idAsignarActivo']);
         $arrayQuery[] = '';
@@ -112,7 +164,7 @@ class assignmentController{
         foreach($array as $word){
             $arrayQuery[$c] ="UPDATE `asig_activo` SET `codigo_registro` = '".$data['codeActa']."' WHERE `id_asignar_activo`=".$word;
             $arrayTimeline[$c] = "INSERT INTO `historico_asig_activo`(`id_funcionario`, `id_asignar_activo`, `id_user`, `registration_date`)
-            VALUES (".$data['id_employee'].",".$word.",".$_SESSION['id'].",NOW())";
+            VALUES (".$data['id_employee'].",".$word.",".$data['user'].",NOW())";
             echo $arrayTimeline[$c];
             $c++;
         }
@@ -152,6 +204,38 @@ class assignmentController{
                 ';
                 
         }
+        
+        
+    }
+
+    public static function create_assignment_asset($data){
+        #echo 'Controlador'.$data['idAsignarActivo'];
+        $array = explode(',',$data['idAsignarActivo']);
+        $arrayQuery[] = '';
+        $arrayTimeline[] = '';
+        //$q = "INSERT INTO `asig_activo`(`id_activo`, `fecha_registro`, `codigo_registro`, `id_asig_ubicacion`) 
+        //VALUES ('".$data['idAsignarActivo']."','".$data['datepicker']."','".$data['codeActa']."','".$data['id_asig']."')";
+        $c = 0;
+        foreach($array as $word){
+            $a = str_replace(
+                '/',
+                '-',
+                $data['datepicker']
+            );
+            //$a = $a
+            $format_date = date("Y-m-d", strtotime($a));
+            //echo strtotime($data["datepicker"]);
+            //echo var_dump($data['datepicker']);
+            //echo date("Y/m/d", strtotime("01/01/2022"));
+            $arrayQuery[$c] = "INSERT INTO `asig_activo`(`id_activo`, `fecha_registro`, `codigo_registro`, `id_asig_ubicacion`) 
+            VALUES ('".$word."','".$format_date."','".$data['codeActa']."','".$data['id_asig']."')";
+            $arrayTimeline[$c] = "INSERT INTO `historico_asig_activo`(`id_funcionario`, `id_asignar_activo`, `id_user`, `registration_date`)
+            VALUES (".$data['id_employee'].",".$word.",".$data['user'].",NOW())";
+            //echo $arrayQuery[$c];
+            $c++;
+        }
+        $answer = assignmentModels::create_assignment_asset($arrayQuery, $arrayTimeline);
+        print_r($answer);
         
         
     }
@@ -196,31 +280,57 @@ class assignmentController{
     public function timeline(){
         $answer = assignmentModels::timeline();
         $constructor = '';
+        $id_activo = 0;
+        $sw = 0;
         foreach ($answer as $row){
-
-            $constructor .=' <!-- timeline time label -->
-                                <li class="time-label">
-                                    <span class="bg-red">
-                                        '.$row['fecha'].'
-                                    </span>
-                                </li>
-                                <!-- /.timeline-label -->';
-            $constructor .= ' <!-- timeline item -->
-                                <li>
-                                <i class="fa fa-user bg-aqua"></i>
-                        
-                                <div class="timeline-item">
-                                    <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
-                        
-                                    <h3 class="timeline-header no-border"><a href="#">'.$_SESSION['name'].' </a> asigno un nuevo activo fijo al usuario <a href="#">'.$row['usuario'].' </a></h3>
-                                    <div class="timeline-body">
-                                    <b>Código de registro: </b> '.$row['codigo_registro'].'
-                                    </div>
-                                </div>
-                                </li>
-                                <!-- END timeline item -->';
             
+            if($row['id_activo'] == $id_activo){
+                $constructor .= '<ul>
+                                    <li><b>Código de registro: </b> '.$row['codigo_registro'].'</li>
+                                    <li><b>Funcionario: </b> '.$row['id_funcionario'].'</li>
+                                    <li><b>Fecha: </b> '.$row['registration_date'].'</li>
+                                </ul>';
+                
+            }else{
+                $sw = 0;
+                $constructor .=' <!-- timeline time label -->
+                                    <li class="time-label">
+                                        <span class="bg-red">
+                                            '.$row['id_activo'].' - test
+                                        </span>
+                                    </li>
+                                    <!-- /.timeline-label -->';
+                if($sw == 0){
+                    $constructor .= ' <!-- timeline item -->
+                                    <li>
+                                    <i class="fa fa-user bg-aqua"></i>
+                            
+                                    <div class="timeline-item">
+                                        <span class="time"><i class="fa fa-clock-o"></i> 5 mins ago</span>
+                                        <h3 class="timeline-header no-border"><a href="#">Activo fijo: '.$row['descripcion'].' - Codigo: '.$row['codigo'].'</a></h3>
+                                    <div class="timeline-body">
+                                        <ul>
+                                            <li><b>Código de registro: </b> '.$row['codigo_registro'].'</li>
+                                            <li><b>Administrador: </b> '.$row['usuario'].'</li>
+                                            <li><b>Responsable del activo: </b> '.$row['id_funcionario'].'</li>
+                                            <li><b>Fecha: </b> '.$row['registration_date'].'</li>
+                                        </ul>';   
+                    $sw = 1;
+                }else{
+                    $constructor .= '</div>
+                                    </div>
+                                    </li>
+                                    <!-- END timeline item -->';
+                                    
+                    $sw = 0;
+                }
+                
+                                        
+            }
+            
+            $id_activo = $row['id_activo'];
         }
+
         echo $constructor;
 
     }
@@ -255,6 +365,25 @@ class assignmentController{
                                 </li>
                                 <!-- END timeline item -->';
             
+        }
+        echo $constructor;
+    }
+
+    public static function select_ubicacion_general($data){
+        $answer = assignmentModels::select_ubicacion_general($data);
+        $constructor = '';
+        $constructor.= '<option value="">Seleccionar</option>';
+        foreach ($answer as $row => $item){
+            $constructor.='<option value="'.$item['id_ubicacion'].'">'.$item['descripcion'].'</option>';
+        }
+        echo $constructor;
+    }
+
+    public static function id_asig($data){
+        $answer = assignmentModels::id_asig($data);
+        //$answer = 1;
+        foreach($answer as $row =>$item){
+            $constructor = $item['id_asig_ubicacion'];
         }
         echo $constructor;
     }

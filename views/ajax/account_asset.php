@@ -78,6 +78,16 @@ class Ajax{
 		echo $answer;
 	}
 
+	public function ajaxViewAccountAsset(){
+		$answer = accountAssetController::view_account_asset_assignment();
+		echo $answer;
+	}
+	/* public function ajaxUpdatedCodeActa(){
+		$codigo_registro = $this -> codigo_registro;
+		$answer = accountAssetController::updated_code_acta($codigo_registro);
+		echo $answer;
+	} */
+
 	
 		
 }
@@ -110,6 +120,19 @@ if(isset($_POST['id_activo'])){
 	$e -> unidad_medida = $_POST['unidad_medida'];
 	$e -> observaciones = $_POST['observaciones'];
 	$e -> ajaxUpdatedAccountAsset();
+}
+//if(isset($_POST['id_function'])){
+//	$f = new Ajax();
+//	$f -> ajaxViewAccountAsset();
+//}
+if(isset($_POST['charge'])){
+	$g = new Ajax();
+	$g -> ajaxViewAccountAsset();
+}
+if(isset($_POST['codeActa'])){
+	$h = new Ajax();
+	$h -> codigo_registro = $_POST['codeActa'];
+	$h -> ajaxUpdatedCodeActa();
 }
 
 

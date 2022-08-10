@@ -10,6 +10,7 @@ class linksControllers{
         }
         $answer = linksModels::linkModel($links);
         include $answer;
+        //echo $answer;
     }
 }
 

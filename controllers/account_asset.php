@@ -69,10 +69,9 @@ class accountAssetController{
         
     }
     
-    public function list_account_asset($search){
+    public static function list_account_asset($search){
         $constructor = '';
         $c = 1;
-        
         $answer = accountAssetModel::list_account_asset($search);
         print json_encode($answer, JSON_UNESCAPED_UNICODE);
         /*
@@ -186,18 +185,95 @@ class accountAssetController{
         echo $sw;
     }
 
-    /*
-    public function edit_historial_account_asset(){
-        if(!isset($_GET['id_activo'])){
-            $_GET['id_activo'] ='';
-        }
-        $answer = accountAssetModel::updated_account_asset($data);
+    public static function view_account_asset_assignment(){
+        $constructor = '';
+        $answer = accountAssetModel::view_account_asset_assignment();
+        print json_encode($answer, JSON_UNESCAPED_UNICODE);
+    }
 
+    public static function view_account_asset_assignment1(){
+        $answer = accountAssetModel::view_account_asset_assignment();
+        $constructor = '';
+        $constructor .= '
+                    <table id="ver_activos_fijos" class="table">
+                        <thead>
+                            <tr>
+                                <th>N</th>
+                                <th>Código</th>
+                                <th>Descripción</th>
+                                <th>Serie</th>
+                                <th>Observacion</th>
+                                <th>Estado</th>
+                                <th>Unidad</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>';
+        $c = 1;
+        foreach ($answer as $a=> $item){
+            $constructor .= '<tr id="'.$item['id_activo'].'">
+            <td>'.$c.'</td>
+            <td>'.$item['codigo'].'</td>
+            <td>'.$item['descripcion'].'</td>
+            <td>'.$item['serie'].'</td>
+            <td>'.$item['observaciones'].'</td>
+            <td>'.$item['id_estado'].'</td>
+            <td>'.$item['id_unidad'].'</td>
+            <td><span class="label label-success">'.$item['estado_asignacion_activo'].'</td></td>
+            </tr>';
+            $c++;
+        }
+        $constructor .= "</tbody>
+                                <tfoot>
+                                <tr>
+
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <script>
+                        $(document).ready(function() {
+                            var table = $('#ver_activos_fijos').DataTable({
+                                dom: 'Bfrtip',
+                                buttons: [
+                                    'selectAll',
+                                    'selectNone'
+                                ],
+                                
+                                select: {
+                                    style: 'multi'
+                                }
+                            });
+                            $('#ver_activos_fijos tbody').on( 'click', 'tr', function () {
+                                $(this).toggleClass('selected');
+                            } );
+                            
+                            $('#button').click(function(){
+                                var n = table.rows('.selected').ids().length;
+                                var ids = table.rows('.selected').ids();
+                                var id_funcionario = $('#id_employee').val();
+                                var funcionario = $('#id_employee option:selected').text();
+                                var valor='';
+                                valor = ids[0];
+                                for(i=1; i<n; i++) {
+                                    valor = valor+ ',' + ids[i];
+                                }
+                                console.log('VALOR' + valor);
+                                $('#idAsignarActivo').val(valor);
+                                console.log('ID FUNCIONARUIO' + id_funcionario);
+                                $('#funcionario').val(funcionario);
+                                $('#id_funcionario').val(id_funcionario); 
+                            });
+                        })
+                        </script>";
+
+        echo $constructor;            
 
     }
-    */
+    /* public static function updated_code_acta(){
+        $answer = accountAssetModel::updated_code_acta($codigo_registro);
+        print json_encode($answer, JSON_UNESCAPED_UNICODE);
+    } */
 
-    
 }
 
 

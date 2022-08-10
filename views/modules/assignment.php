@@ -35,7 +35,7 @@ if(!$_SESSION['validate']){
                     <div class="form-group">
 					<label for="inputDescripcion" class="col-sm-2 control-label">Funcionario</label>
 						<div class="col-sm-10">
-							<select class="form-control select2" id="select_employee" name="id_funcionario">
+							<select class="form-control select2" id="select_employee" name="id_funcionario" data-placeholder="Seleccionar funcionario" style="width: 100%;">
 								<?php
 									$select_employee = new employeeController();
 									$select_employee -> select_employee();
@@ -83,7 +83,7 @@ if(!$_SESSION['validate']){
 							</div>
 						
 
-						<div class="box-body responsive_tabla" id="llenarAsignaciones">
+						<div class="box-body responsive_tabla" id="chargeAsignaciones">
 							
 						</div>
 						
@@ -119,6 +119,7 @@ if(!$_SESSION['validate']){
 						<div class="modal-body" id="modalAsiActivo">
 							<form class="form-horizontal" METHOD="POST">
 								<input type="hidden" name="funcionario" id="funcionario">
+								<input type="hidden" name="user" id="user" value="<?php echo $_SESSION['id'] ?>">
 								<div class="box-body">
 									<div class="form-group">
 										<label for="idAsignarActivo" class="col-sm-2 control-label">IDS</label>

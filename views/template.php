@@ -123,9 +123,15 @@
 
 
 <script>
-  
-  option='asd';
-  $("#datepicker").datepicker({});
+  $('.select2').select2();
+
+  $("#datepicker").datepicker({ dateFormat: 'yy-mm-dd'}).datepicker('setDate', 'today');
+  //$("#date_assignment_asset").datepicker('setDate', 'today');
+  $(".date_assignment_asset").datepicker({
+      dateFormat: 'dd-mm-yy',//check change
+      changeMonth: true,
+      changeYear: true
+    }).datepicker('setDate', 'today');
   table_account_asset = $("#ver_account_asset").DataTable({
     responsive: true,
     select:{
@@ -134,7 +140,7 @@
     'ajax':{
     'url': 'views/ajax/account_asset.php',
     'method': 'POST',
-    'data':{option:option},
+    'data':{option:'option'},
     'dataSrc':''
     },
     'columns':[
@@ -151,7 +157,60 @@
       {'defaultContent':'<button type="button" class="btn btn-primary btnEditAccountAsset" data-toggle="modal" data-target="#edit_account_asset"><i class="fa fa-pencil"></i></button>'}
     ],
   }); 
-  
+  var tree_account_asset_assignment = $("#tree_activos_fijos").DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+          'selectAll',
+          'selectNone'
+      ],
+      
+      select: {
+          style: 'multi'
+      },
+      'ajax':{
+      'url': 'views/ajax/account_asset.php',
+      'method': 'POST',
+      'data':{charge:'all'},
+      'dataSrc':''
+      },
+      rowId: 'id_activo',
+      'columns':[
+        {'data':'id_activo',
+          'className':'id_activo'      
+        },
+        {'data':'codigo'},
+        {'data':'descripcion'},
+        {'data':'serie'},
+        {'data':'observaciones'},
+        {'data':'id_estado'},
+        {'data':'id_unidad'},
+        {'data':'estado_asignacion_activo'}
+      ],
+      
+  });
+  $('#tree_activos_fijos tbody').on( 'click', 'tr', function () {
+    $(this).toggleClass('selected');
+    var a = tree_account_asset_assignment.row(this).data();
+
+    //console.log("A" + a[class]);
+  });
+
+  $('#button').click(function(){
+      var n = tree_account_asset_assignment.rows('.selected').ids().length;
+      var ids = tree_account_asset_assignment.rows('.selected').ids();
+      var id_funcionario = $('#id_employee').val();
+      var funcionario = $('#id_employee option:selected').text();
+      var valor='';
+      valor = ids[0];
+      for(i=1; i<n; i++) {
+          valor = valor+ ',' + ids[i];
+      }
+      console.log('VALOR' + valor);
+      $('#id_assignment_asset').val(valor);
+      console.log('ID FUNCIONARUIO' + id_funcionario);
+      $('#funcionario').val(funcionario);
+      $('#id_funcionario').val(id_funcionario); 
+    });
   //$("#ver_account_asset tbody").on('click', 'tr', function () {
     //  var data = table_account_asset.row(this).data();
       //console.log(data['id_activo']);
@@ -161,7 +220,7 @@
 <script>
      $('#reservation').daterangepicker({
         "locale": {
-            "format": "YYYY-MM-DD",
+            "format": "DD-MM-YYYY",
             "separator": " / ",
             "applyLabel": "Guardar",
             "cancelLabel": "Cancelar",

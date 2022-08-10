@@ -6,6 +6,7 @@ require_once 'controllers/configuration.php';
 require_once 'controllers/account_asset.php';
 require_once 'controllers/employee.php';
 require_once 'controllers/assignment.php';
+require_once 'controllers/account_assigment.php';
 
 require_once 'models/conexion.php';
 require_once 'models/links.php';
