@@ -385,6 +385,123 @@ class assignmentController{
         foreach($answer as $row =>$item){
             $constructor = $item['id_asig_ubicacion'];
         }
+
+        echo $constructor;
+    }
+
+    public static function employeeActa($data){
+        $answer = assignmentModels::employeeActa($data);
+        $constructor = 'asd';
+        $sw = 0;
+        foreach ($answer as $row => $item){
+            if($sw == 0){
+                $constructor .= '<div class="widget-user-header bg-gray">
+                                    <div class="widget-user-image">
+                                        <img class="img-circle" src="views/images/personal_img.png" alt="User Avatar">
+                                    </div>
+                                    <!-- /.widget-user-image -->
+                                    <h3 class="widget-user-username">'.$item['nombre_completo'].'</h3>
+                                    <h5 class="widget-user-desc">'.$item['cargo'].'</h5>
+                                </div>';
+                $sw = 1;
+            }
+            $constructor .= '<div class="widget-user-header bg-gray">
+            <div class="widget-user-image">
+                <img class="img-circle" src="views/images/personal_img.png" alt="User Avatar">
+            </div>
+                <!-- /.widget-user-image -->
+                <h3 class="widget-user-username">Nadia Carmichael</h3>
+                <h5 class="widget-user-desc">Lead Developer</h5>
+            </div>
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Historial de procesos</h3>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="width: 10px">#</th>
+                            <th style="width: 150px">Asignaciones</th>
+                            <th>Detalle</th>
+                        </tr>';
+            if($item['tipo_asignacion'] == 'entrega'){
+                $constructor .= '<tr>
+                                    <td>1.</td>
+                                    <td>Actas de entrega</td>
+                                    <td><span class="badge bg-light-blue">'.$item['codigo_registro'].'</span></td>
+                                </tr>';
+            }
+            if($item['tipo_asignacion'] == 'devolucion'){
+                $constructor .= '<tr>
+                                    <td>2.</td>
+                                    <td>Actas de devolucion</td>
+                                    <td><span class="badge bg-light-blue">'.$item['codigo_registro'].'</span></td>
+                                </tr>';
+            }
+
+        }
+        $constructor .= '</table>
+        </div>';        
+        echo $constructor;
+    }
+
+    public static function employeeActas($data){
+        $answer = assignmentModels::employeeActa($data);
+        $constructor = '';
+        $sw = 0;
+        $sw1 = 0;
+        $sw2 = 0;
+        foreach ($answer as $row => $item){
+            if($sw == 0){
+                $constructor .= '<div class="widget-user-header bg-gray">
+                                    <div class="widget-user-image">
+                                        <img class="img-circle" src="views/images/personal_img.png" alt="User Avatar">
+                                    </div>
+                                    <!-- /.widget-user-image -->
+                                    <h3 class="widget-user-username">'.$item['nombre_completo'].'</h3>
+                                    <h5 class="widget-user-desc">'.$item['cargo'].'</h5>
+                                </div>';
+                $sw = 1;
+            
+                $constructor .= '
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Historial de procesos</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <table class="table table-bordered">
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th style="width: 150px">Asignaciones</th>
+                                <th>Detalle</th>
+                            </tr>';
+            }
+            if($item['tipo_asignacion'] == 'entrega'){
+                $constructor .= '<tr>
+                                    <td>1.</td>
+                                    <td>Actas de entrega</td>
+                                    <td><span class="badge bg-light-blue">'.$item['codigo_registro'].'</span>';
+                $sw1 = 1;
+                if($sw1 == 1){
+                    $constructor .= '<span class="badge bg-light-blue">'.$item['codigo_registro'].'</span>';
+                }  
+            }
+            if($item['tipo_asignacion'] == 'devolucion'){
+                if($sw1 == 1){
+                    $constructor.= '</td></tr>';
+                }
+                $constructor .= '<tr>
+                                    <td>2.</td>
+                                    <td>Actas de devolucion</td>
+                                    <td><span class="badge bg-light-blue">'.$item['codigo_registro'].'</span></td>
+                                </tr>';
+            }
+
+        }
+        $constructor .= '</table>
+        </div>';        
         echo $constructor;
     }
 

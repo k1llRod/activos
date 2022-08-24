@@ -6,13 +6,13 @@ class assignmentModels{
         $query = conexion::conectar()->prepare("SELECT * FROM ubi_area");
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
     }
     public static function ciudad(){
         $query = conexion::conectar()->prepare("SELECT * FROM ciudad");
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
     }
 
     public static function select_ubicacion_general($data){
@@ -20,7 +20,7 @@ class assignmentModels{
         $query->bindParam(':id_ciudad',$data,PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
     }
     public static function select_location_area($data,$data1){
         $query = conexion::conectar()->prepare("SELECT ac.id_asignar_activo, ac.fecha_registro, ac.codigo_registro, au.id_funcionario, f.ci, CONCAT(f.nombres,' ',f.apellidos)nombre_completo, f.cargo,
@@ -36,7 +36,7 @@ class assignmentModels{
         $query->bindParam(':id_especifica',$data1,PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
     }
 
     public static function select_location_especifica($data){
@@ -52,7 +52,7 @@ class assignmentModels{
         $query->bindParam(':id_funcionario',$data,PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
     }
     
     public static function select_location_especifica_asset($data){
@@ -61,7 +61,7 @@ class assignmentModels{
         $query->bindParam(':id_ubicacion',$data,PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
     }
 
     public static function select_location_general($data){
@@ -81,7 +81,7 @@ class assignmentModels{
         }
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
     }
 
     public static function select_ubicacion_area($data){
@@ -90,7 +90,7 @@ class assignmentModels{
         $query->bindParam(':id_especifica',$data,PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
     }
     public static function select_employee($data){
         $query = conexion::conectar()->prepare("SELECT * 
@@ -99,7 +99,7 @@ class assignmentModels{
         $query->bindParam(':id_area',$data,PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
     }
 
     public static function table_asignaciones($data,$data1){
@@ -117,7 +117,7 @@ class assignmentModels{
         $query->bindParam(':id_area',$data1,PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
     }
 
     public static function create_acta($data, $data1){
@@ -139,8 +139,8 @@ class assignmentModels{
         }
 
         return $sw;
-        $query->close();
-        $query1->close();
+        $query->close;
+        $query1->close;
     }
 
     public static function create_assignment_asset($data, $data1){
@@ -163,8 +163,8 @@ class assignmentModels{
 
         //return $sw;
         return $query->errorCode();
-        $query->close();
-        $query1->close();
+        $query->close;
+        $query1->close;
     }
 
     public static function tabla_asignacion($query){
@@ -184,7 +184,7 @@ class assignmentModels{
         $queryExe = conexion::conectar()->prepare($totalQuery);
         $queryExe->execute();
         return $queryExe->fetchAll();
-        $queryExe->close();
+        $queryExe->close;
     }
 
     // public static function timeline(){
@@ -209,7 +209,7 @@ class assignmentModels{
         $queryExe = conexion::conectar()->prepare($totalQuery);
         $queryExe->execute();
         return $queryExe->fetchAll();
-        $queryExe->close();
+        $queryExe->close;
     }
 
 
@@ -233,7 +233,19 @@ class assignmentModels{
         $query->bindParam(':id_area',$data['id_area'],PDO::PARAM_INT);
         $query->execute();
         return $query->fetchAll();
-        $query->close();
+        $query->close;
+    }
+    public static function employeeActa($data){
+        $query = conexion::conectar()->prepare("SELECT aa.id_asignar_activo,aa.codigo_registro,au.id_funcionario,CONCAT(f.nombres,' ',f.apellidos) AS nombre_completo,f.ci,f.cargo,aa.tipo_asignacion
+        FROM asig_activo aa LEFT JOIN asig_ubicacion au ON aa.id_asig_ubicacion = au.id_asig_ubicacion
+        LEFT JOIN funcionario f ON f.id_funcionario = au.id_funcionario
+        WHERE aa.codigo_registro != 'VACIO' AND au.id_funcionario =:id_funcionario
+        GROUP BY aa.codigo_registro
+        ORDER BY aa.codigo_registro DESC");
+        $query->bindParam(':id_funcionario',$data,PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchAll();
+        $query->close;
     }
 
 }

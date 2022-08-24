@@ -120,8 +120,8 @@ foreach($funcionario as $row => $item){
 
 if(isset($_GET['fecha'])){
     $fecha = $_GET['fecha'];
-    $date = new DateTime($fecha);
-    $d = $date->format('d-m-Y');
+    // $date = new DateTime($fecha);
+    // $d = $date->format('d-m-Y');
 
 }
 // set some text to print
@@ -132,7 +132,7 @@ $html1 = <<<EOD
             <td width="100%" colspan="4" style="text-align:center; font-family:Monotype Corsiva; font-size:14px; height: 30px;"><strong>Acta de Asignación</strong></td>
         </tr>
         <tr>
-            <td width="100%" colspan="4" style="text-align:justify;">En la ciudad de La Paz, en fecha $d, el Área de Activos Fijos de la Unidad de Servicios Administrativos dependiente de
+            <td width="100%" colspan="4" style="text-align:justify;">En la ciudad de La Paz, en fecha $fecha, el Área de Activos Fijos de la Unidad de Servicios Administrativos dependiente de
             la Dirección de Administración y Servicios del Instituto Nacional de Estadística, realiza la ENTREGA de los bienes de uso al Sr.(a):
              $nombre_completo, con C.I. $ci. $cargo, de acuerdo al siguiente detalle:</td>
             

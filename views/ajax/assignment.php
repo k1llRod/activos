@@ -86,6 +86,14 @@ class Ajax{
 		$respuesta = assignmentController::id_asig($data);
 		//echo $respuesta = 1;
 	}
+	public function employeeActaAjax(){
+		$data= $this ->id_employee;
+		$respuesta = assignmentController::employeeActa($data);
+	}
+	public function employeeActa2Ajax(){
+		$data= $this ->id_employee;
+		$respuesta = assignmentController::employeeActas($data);
+	}
 		
 }
 if(isset($_POST['id_employee'])){
@@ -157,12 +165,18 @@ if(isset($_POST['create_assignment'])){
 	$j -> create_assignment_assetAjax(); 
 }
 
-if(isset($_POST['employee']) && isset($_POST['area'])){
+if(isset($_POST['employee'])){
 	$k = new Ajax();
 	$k -> id_employee = $_POST['employee'];
-	$k -> id_area = $_POST['area'];
-	$k -> id_asigAjax();
+	$k -> employeeActa2Ajax();
 }
+
+if(isset($_POST['employee_acta'])){
+	$l = new Ajax();
+	$l -> id_employee = $_POST['employee_acta'];
+	$l -> employeeActaAjax();
+}
+
 
 
 

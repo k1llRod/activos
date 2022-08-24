@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    /* ASIGNACION DE FUNCIONARIOS */ 
+    /* ASIGNACION DE FUNCIONARIOS */
     chargeGeneral();
     $("#select_employee").change(function(){
         console.log($("#select_employee").val());
@@ -17,13 +17,13 @@ $(document).ready(function() {
         chargeArea();
         //console.log('area');
     })
-    
+
     chargeTableAsignacion();
     $("#location_area").change(function(){
         chargeTableAsignacion();
         //console.log('table');
     })
-   
+
     $("#createActa").click(function(){
         console.log('funciona 22');
         createActa();
@@ -44,30 +44,38 @@ $(document).ready(function() {
         charge_location_area();
         console.log("Ubicacion area : "+$('#location_especifica').val());
     })
-    
+
     $("#location_areas").change(function(){
         charge_funcionario();
         console.log("Ubicacion area : "+$('#location_area').val());
     })
-    
+
     $("#id_employee").change(function(){
-        datos = {'employee':$("#id_employee").val(), 
-            'area':$('#location_area').val()
-            }
-        console.log("VALOR ASIGNACION");
+        console.log($('#id_employee').val());
         $.ajax({
             url:'views/ajax/assignment.php',
             method:"POST",
-            data:{'employee': $("#id_employee").val(),
-                    'area': $('#location_area').val()},
+            data:{'employee': $("#id_employee").val()},
             success:function(r){
                 console.log(r);
-                $("#id_asig").val(r);
+                $("#perfil_usuario").html(r);
                 //console.log(r);
                 //$('#llenarActivosFijosAsignacion').html(r);
             }
         });
-        
+        // console.log('perfil usuario:',$('#id_employee').val());
+        // $.ajax({
+        //     url:'views/ajax/assignment.php',
+        //     method:"POST",
+        //     data:{'employee_acta': $("#id_employee").val()},
+        //     success:function(s){
+        //         console.log(s);
+        //         $("#perfil_usuario").val(s);
+        //         //console.log(r);
+        //         //$('#llenarActivosFijosAsignacion').html(r);
+        //     }
+        // });
+
     })
     $("#button").click(function(){
         console.log('funciona 11');
@@ -76,7 +84,7 @@ $(document).ready(function() {
         console.log(name_funcionario);
         $("#funcionario").val(name_funcionario);
         $("#id_funcionario").val(id);
-        //$('#id_asig').val(id_location_area); 
+        //$('#id_asig').val(id_location_area);
         //console.log(id_location_area);
     })
 
@@ -137,10 +145,10 @@ $(document).ready(function() {
         console.log(id_assignment_asset);
     });
 
-    
-    
+
+
 })
-/*TREE ACTIVOS FIJOS ASIGNACION*/ 
+/*TREE ACTIVOS FIJOS ASIGNACION*/
 
 /* ASIGNACION DE ACTIVOS FIJOS */
 function chargeUbicacionGeneral(){
@@ -151,7 +159,7 @@ function chargeUbicacionGeneral(){
         success:function(r){
             console.log(r);
             $('#ubicacion_general').html(r);
-        
+
         }
     });
 }
@@ -163,9 +171,9 @@ function asset_state(){
 		success:function(r){
              console.log(r);
              $('#inputEstado').append(r);
-           
+
         },
-       
+
     });
 }
 
@@ -177,9 +185,9 @@ function unidad(){
 		success:function(r){
              console.log(r);
              $('#inputUnidad').append(r);
-           
+
         },
-       
+
     });
 }
 
@@ -230,11 +238,11 @@ $('#formEditAccountAsset').submit(function(e){
     $.ajax({
         url:'views/ajax/account_asset.php',
 		method:"POST",
-		data:{'id_activo':id_activo, 'codigo':codigo, 'descripcion': descripcion, 'serie': serie, 'estado': estado, 
+		data:{'id_activo':id_activo, 'codigo':codigo, 'descripcion': descripcion, 'serie': serie, 'estado': estado,
                 'unidad_medida': unidad_medida, 'observaciones': observaciones,'fecha_registro': fecha_registro, 'codigo_registro': codigo_registro},
 		success:function(r){
             console.log(r);
-            
+
             swal({
                 title: "OK!",
                 text: "Activo actualizado!!",
@@ -253,7 +261,7 @@ $('#formEditAccountAsset').submit(function(e){
                 closeOnConfirm: false,
                 });
         }
-        
+
     });
 
 });
@@ -278,7 +286,7 @@ function chargeEspecifica(){
 		success:function(r){
             console.log(r);
 			$('#location_especifica').html(r);
-           
+
         }
     });
 }
@@ -290,7 +298,7 @@ function charge_location_especifica(){
 		success:function(r){
             console.log(r);
 			$('#location_especifica').html(r);
-           
+
         }
     });
 }
@@ -342,7 +350,7 @@ function chargeTableAsignacion() {
 
 
 function createActa() {
-    datos = {'idAsignarActivo':$("#idAsignarActivo").val(), 
+    datos = {'idAsignarActivo':$("#idAsignarActivo").val(),
             'codeActa':$('#codeActa').val(),
             'datepicker':$('#datepicker').val(),
             'id_employee':$('#select_employee').val(),
@@ -356,7 +364,7 @@ function createActa() {
             $("#actaPdf").attr("href","tcpdf/examples/acta_asignacion.php?ids="+$("#idAsignarActivo").val()+'&id_funcionario='+$("#select_employee").val()+'&fecha='+$('#datepicker').val()+'&codeActa='+$('#codeActa').val());
             $("#actaPdf").removeClass("disabled");
             console.log("FUNCIONA ASIGNACION: ", r);
-            
+
             swal({
                 title: "OK!",
                 text: "Acta creada!!",
@@ -377,7 +385,7 @@ function createActa() {
     });
 }
 function create_assignment_asset(){
-    datos = {'funcionario':$("#funcionario").val(), 
+    datos = {'funcionario':$("#funcionario").val(),
             'id_assignment_asset':$('#id_assignment_asset').val(),
             'codeActa':$('#codeActa').val(),
             'date_assignment_asset':$('#date_assignment_asset').val(),
@@ -391,7 +399,7 @@ function create_assignment_asset(){
             $("#actaPdf").attr("href","tcpdf/pdf/actas_asignacion.php?ids="+$("#idAsignarActivo").val()+'&id_funcionario='+$("#select_employee").val()+'&fecha='+$('#datepicker').val()+'&codeActa='+$('#codeActa').val());
             $("#actaPdf").removeClass("disabled");
             console.log("FUNCIONA ASIGNACION: ", r);
-            
+
             swal({
                 title: "OK!",
                 text: "Acta creada!!",
