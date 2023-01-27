@@ -133,7 +133,6 @@ include 'views/modules/left_menu.php';
 		<div class="row">
 
 			<!-- Modal -->
-
 			<div class="modal fade" id="crear_acta_account_asset">
 				<div class="modal-dialog">
 					<div class="modal-content">
@@ -214,6 +213,104 @@ include 'views/modules/left_menu.php';
 
 
 			</div>
+			<div class="modal fade" id="modal_update_acta">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title">Acta de asignacion</h4>
+						</div>
+						<div class="modal-body">
+							<form class="form-horizontal" id="edit_acta">
+								<div class="box-body">
+									<div class="form-group">
+										<label for="codigo_registro" class="col-sm-2 control-label">Codigo de registro</label>
+
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="codigo_registro" placeholder="Codigo de registro">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="id_employee_acta" class="col-sm-2 control-label">Funcionario</label>
+
+										<div class="col-sm-10">
+											<input type="text" class="form-control" id="id_employee_acta" placeholder="Funcionario">
+										</div>
+									</div>
+									<div class="box" id="test">
+										<div class="box-header">
+											<h3 class="box-title">Activos asignados</h3>
+
+											<div class="box-tools">
+												<div class="input-group input-group-sm" style="width: 150px;">
+													<input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+
+													<div class="input-group-btn">
+														<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<!-- /.box-header -->
+										<div class="box-body table-responsive no-padding" id="table_codigo_registro">
+											<!-- <table class="table table-hover">
+												<tr>
+													<th>ID</th>
+													<th>Codigo</th>
+													<th>Descripcion</th>
+													<th>Serie</th>
+													<th>Observacion</th>
+													<th>Estado</th>
+													<th>Unidad</th>
+													<th>Status</th>
+												</tr>
+												<tr>
+													<td>183</td>
+													<td>John Doe</td>
+													<td>11-7-2014</td>
+													<td><span class="label label-success">Approved</span></td>
+													<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+												</tr>
+												<tr>
+													<td>219</td>
+													<td>Alexander Pierce</td>
+													<td>11-7-2014</td>
+													<td><span class="label label-warning">Pending</span></td>
+													<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+												</tr>
+												<tr>
+													<td>657</td>
+													<td>Bob Doe</td>
+													<td>11-7-2014</td>
+													<td><span class="label label-primary">Approved</span></td>
+													<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+												</tr>
+												<tr>
+													<td>175</td>
+													<td>Mike Doe</td>
+													<td>11-7-2014</td>
+													<td><span class="label label-danger">Denied</span></td>
+													<td>Bacon ipsum dolor sit amet salami venison chicken flank fatback doner.</td>
+												</tr>
+											</table> -->
+										</div>
+										<!-- /.box-body -->
+									</div>
+
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Save changes</button>
+						</div>
+					</div>
+					<!-- /.modal-content -->
+				</div>
+				<!-- /.modal-dialog -->
+			</div>
+			<!-- /.modal -->
 		</div>
 
 	</section>

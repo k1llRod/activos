@@ -16,7 +16,7 @@ class configuracionModelo{
 	    	return 'error';
 	    }
 	  
-	    $consulta->close();
+	    $consulta->close;
 	}
 
 	public function nuevo_auto($datoControlador){
@@ -32,7 +32,7 @@ class configuracionModelo{
 	    	return 'error';
 	    }
 	    
-	    $consulta->close();
+	    $consulta->close;
 	}
 
 
@@ -42,14 +42,14 @@ class configuracionModelo{
 
 		$consulta->execute();
 		return $consulta->fetchAll();
-		$consulta->close();
+		$consulta->close;
 	}
 
 	public function ver_tablas_actas(){
 		$consulta = conexion::conectar()->prepare('SELECT * FROM acta_formatos');
 		$consulta->execute();
 	    return $consulta->fetchAll();
-	    $consulta->close();
+	    $consulta->close;
 	}
 
 
@@ -57,7 +57,7 @@ class configuracionModelo{
 		$consulta = conexion::conectar()->prepare('SELECT * FROM `auto_inicial` WHERE 1');
 		$consulta->execute();
 	    return $consulta->fetchAll();
-	    $consulta->close();
+	    $consulta->close;
 	}
 
 
@@ -67,7 +67,7 @@ class configuracionModelo{
 
 		$consulta->execute();
 		return $consulta->fetchAll();
-		$consulta->close();
+		$consulta->close;
 	}
 
 		public function lista_resolucion(){
@@ -76,7 +76,7 @@ class configuracionModelo{
 
 			$consulta->execute();
 			return $consulta->fetchAll();
-			$consulta->close();
+			$consulta->close;
 		}
 
 		public function nuevo_resolutivo($datoControlador){
@@ -92,7 +92,7 @@ class configuracionModelo{
 		    	return 'error';
 		    }
 		    
-		    $consulta->close();
+		    $consulta->close;
 		}
 
 
@@ -102,7 +102,7 @@ class configuracionModelo{
 
 			$consulta->execute();
 			return $consulta->fetchAll();
-			$consulta->close();
+			$consulta->close;
 		}
 
 		public function nuevaFalta($datoControlador){
@@ -119,7 +119,7 @@ class configuracionModelo{
 		    	return 'error';
 		    }
 		    
-		    $consulta->close();
+		    $consulta->close;
 		}
 
 		public function nuevoInciso($datoControlador){
@@ -137,7 +137,7 @@ class configuracionModelo{
 		    	return 'error';
 		    }
 		    
-		    $consulta->close();
+		    $consulta->close;
 		}
 
 
@@ -151,7 +151,7 @@ class configuracionModelo{
 		    }else{
 		    	return 'error';
 		    }
-		    $consulta->close();
+		    $consulta->close;
 		}
 
 		public function ver_lista_auto_inicial(){
@@ -160,7 +160,7 @@ class configuracionModelo{
 
 			$consulta->execute();
 			return $consulta->fetchAll();
-			$consulta->close();
+			$consulta->close;
 		}
 
 		public function borrar_auto_inicial($varControlador){
@@ -173,7 +173,7 @@ class configuracionModelo{
 		    }else{
 		    	return 'error';
 		    }
-		    $consulta->close();
+		    $consulta->close;
 		}
 
 		public function ver_lista_resolucion(){
@@ -182,7 +182,7 @@ class configuracionModelo{
 
 			$consulta->execute();
 			return $consulta->fetchAll();
-			$consulta->close();
+			$consulta->close;
 		}
 
 		public function borrar_resolucion($varControlador){
@@ -195,7 +195,7 @@ class configuracionModelo{
 		    }else{
 		    	return 'error';
 		    }
-		    $consulta->close();
+		    $consulta->close;
 		}
 }
 

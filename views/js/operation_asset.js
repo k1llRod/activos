@@ -35,7 +35,7 @@ $(document).ready(function() {
     
 
 
-    //ASIGNACIONES DE Activos
+    //ASIGNACIONES DE ACTIVOS
     var table = $('#ver_activos_fijos').DataTable({
         dom: 'Bfrtip',
         buttons: [
@@ -71,6 +71,4 @@ $(document).ready(function() {
         console.log(id_assignment_asset);
     });
 
-    
-    
 })

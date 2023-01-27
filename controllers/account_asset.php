@@ -219,7 +219,13 @@ class accountAssetController{
             <td>'.$item['observaciones'].'</td>
             <td>'.$item['id_estado'].'</td>
             <td>'.$item['id_unidad'].'</td>
-            <td><span class="label label-success">'.$item['estado_asignacion_activo'].'</td></td>
+            <td><span class="label label-success">'.$item['estado_asignacion_activo'].'</td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default"><i class="fa fa-edit"></i></button>
+                    <button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button>
+                </div>
+            </td>   
             </tr>';
             $c++;
         }

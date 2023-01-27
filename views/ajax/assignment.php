@@ -14,6 +14,7 @@ class Ajax{
 	public $datepicker;
 	public $id_ciudad;
 	public $user;
+	public $codigo_registro;
 	
 
 	public function llenarSelectGeneralAjax(){
@@ -93,6 +94,16 @@ class Ajax{
 	public function employeeActa2Ajax(){
 		$data= $this ->id_employee;
 		$respuesta = assignmentController::employeeActas($data);
+	}
+	public function getAssetCodeAjax(){
+		$data= $this ->codigo_registro;
+		$data= array('codigo_registro'=>$this-> codigo_registro,
+					'id_employee'=>$this ->id_employee);
+		$respuesta = assignmentController::get_asset_code($data);
+	}
+	public function eliminarActivoActaAjax(){
+		$data= $this ->idAsignarActivo;
+		$respuesta = assignmentController::eliminar_activo_acta($data);
 	}
 		
 }
@@ -175,6 +186,21 @@ if(isset($_POST['employee_acta'])){
 	$l = new Ajax();
 	$l -> id_employee = $_POST['employee_acta'];
 	$l -> employeeActaAjax();
+}
+
+// CODIGO REGISTRO
+if(isset($_POST['codigo_registro'])&& isset($_POST['id_employee_acta'])){
+	$m = new Ajax();
+	$m -> codigo_registro = $_POST['codigo_registro'];
+	$m -> id_employee = $_POST['id_employee_acta'];
+	$m -> getAssetCodeAjax();
+}
+
+//ELIMINAR ACTIVO DE ACTA
+if(isset($_POST['id_eliminar_activo_acta'])){
+	$n = new Ajax();
+	$n -> idAsignarActivo = $_POST['id_eliminar_activo_acta'];
+	$n -> eliminarActivoActaAjax();
 }
 
 

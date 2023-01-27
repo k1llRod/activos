@@ -57,6 +57,11 @@
   <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 
   <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <style>
+    .swal2-popup {
+      font-size: 2rem !important;
+    }
+  </style>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini fixed" style="height: 100%;">
@@ -113,6 +118,8 @@
 <script src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
 
 <script src="https://cdn.datatables.net/buttons/2.0.1/js/dataTables.buttons.min.js"></script>
+
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 <script src="views/js/validacionUsuario.js"></script>

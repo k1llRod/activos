@@ -478,17 +478,18 @@ class assignmentController{
                                 <th>Detalle</th>
                             </tr>';
             }
-            if($item['tipo_asignacion'] == 'entrega'){
-                $constructor .= '<tr>
-                                    <td>1.</td>
-                                    <td>Actas de entrega</td>
-                                    <td><span class="badge bg-light-blue">'.$item['codigo_registro'].'</span>';
-                $sw1 = 1;
+            if($item['tipo_asignacion'] == 'assignment'){
                 if($sw1 == 1){
-                    $constructor .= '<span class="badge bg-light-blue">'.$item['codigo_registro'].'</span>';
-                }  
+                    $constructor .= '<span class="badge bg-light-blue update_acta" id="'.$item['codigo_registro'].'" type="button" data-toggle="modal" data-target="#modal_update_acta">'.$item['codigo_registro'].'</span>';
+                }else{
+                    $constructor .= '<tr>
+                        <td>1.</td>
+                        <td>Actas de entrega</td>
+                        <td><span class="badge bg-light-blue update_acta" id="'.$item['codigo_registro'].'" type="button" data-toggle="modal" data-target="#modal_update_acta">'.$item['codigo_registro'].'</span>';
+                }
+                $sw1 = 1;  
             }
-            if($item['tipo_asignacion'] == 'devolucion'){
+            if($item['tipo_asignacion'] == 'return'){
                 if($sw1 == 1){
                     $constructor.= '</td></tr>';
                 }
@@ -501,8 +502,111 @@ class assignmentController{
 
         }
         $constructor .= '</table>
-        </div>';        
+        </div>
+        <script>
+        /*MODIFICAR ACTAS DE ASIGACION DE ACTIVOS*/
+            $(".update_acta").click(function(){
+                var id = $(this).attr("id");
+                var id_employee = $("#id_employee").val();
+                $("#codigo_registro").val(id);
+                $("#id_employee_acta").val(id_employee);
+                console.log(id);
+                console.log(id_employee);
+                $.ajax({
+                    url:"views/ajax/assignment.php",
+                    method:"POST",
+                    data:{"codigo_registro":id, "id_employee_acta":id_employee},
+                    success:function(r){
+                        console.log(r);
+                        $("#table_codigo_registro").html(JSON.parse(r));
+                        
+                    }
+                });
+                
+            })
+        </script>';        
         echo $constructor;
+    }
+
+    public static function get_asset_code($data){
+        $answer = assignmentModels::get_asset_code($data);
+        $constructor = '';
+        $constructor .= '<table class="table table-hover">
+                            <tr>
+                                <th>ID</th>
+                                <th>Codigo</th>
+                                <th>Descripcion</th>
+                                <th>Serie</th>
+                                <th>Observacion</th>
+                                <th>Estado</th>
+                                <th>Unidad</th>
+                                <th>Status</th>
+                                <th>Acción</th>
+                            </tr>';
+        foreach($answer as $row => $item){
+            $constructor .= '<tr id="'.$item['id_asignar_activo'].'">
+                                <td>'.$item['id_asignar_activo'].'</td>
+                                <td>'.$item['codigo_registro'].'</td>
+                                <td>'.$item['id_activo'].'</td>
+                                <td>'.$item['id_activo'].'</td>
+                                <td>'.$item['id_activo'].'</td>
+                                <td>'.$item['id_activo'].'</td>
+                                <td>'.$item['id_activo'].'</td>
+                                <td>'.$item['id_activo'].'</td>
+                                <td>
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-danger delete_activo_acta" id="'.$item['id_asignar_activo'].'"><i class="fa fa-times"></i></button>
+                                    </div>
+                                </td>     
+                            </tr>';    
+        }
+        $constructor .= '</table>
+        <script>
+        //ELIMINAR ACTIVO ASIGNADO
+        $(".delete_activo_acta").click(function(){
+            console.log("Eliminar activo asignado");
+            var id_assignment_asset = $(this).attr("id");
+            
+            console.log(id_assignment_asset);
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You wont be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url:"views/ajax/assignment.php",
+                        method:"POST",
+                        data:{"id_eliminar_activo_acta":id_assignment_asset},
+                        success:function(r){
+                            console.log(r);
+                            if(r == "ok"){
+                                Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                            }else{
+                                Swal.fire("Error!", "Your file has not been deleted.", "error");
+                            }
+                        }
+                    });
+                  
+                }
+              })
+        });
+        </script>';
+        print json_encode($constructor, JSON_UNESCAPED_UNICODE);
+        // echo $constructor;
+    }
+
+    public static function eliminar_activo_acta($data){
+        $answer = assignmentModels::eliminar_activo_acta($data);
+        if($answer){
+            echo "ok";
+        }else{
+            echo "error";
+        }
     }
 
     

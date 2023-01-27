@@ -16,7 +16,7 @@ class accountAssetModel{
         // $query->execute();
         $query->execute();
         return $query;
-        $query -> close();
+        $query -> close;
     }
     public static function list_account_asset($a){
         $query = conexion::conectar()->prepare("SELECT a.id_activo, a.codigo, a.descripcion, a.serie, a.observaciones, a.id_estado, e.descripcion estado, a.id_unidad, um.nombre, um.sigla, aa.id_asignar_activo, 
@@ -29,7 +29,7 @@ class accountAssetModel{
         $data = $query->fetchAll(PDO::FETCH_ASSOC);
         return $data;
         #echo json_encode($data);
-        $query -> close();
+        $query -> close;
     }
 
     public function edit_account_asset($data){
@@ -46,7 +46,7 @@ class accountAssetModel{
         $query->execute();
         return $query;
         #echo json_encode($data);
-        $query -> close();
+        $query -> close;
     }
 
     public function view_account_asset($id_asset){
@@ -64,7 +64,7 @@ class accountAssetModel{
         $data = $query->fetchAll(PDO::FETCH_ASSOC);
         return $data;
         #echo json_encode($data);
-        $query -> close();
+        $query -> close;
     }
 
     public function updated_account_asset($data){
@@ -93,7 +93,7 @@ class accountAssetModel{
         $query->execute();
         $data = $query->fetchAll(PDO::FETCH_ASSOC);
         return $data;
-        $query->close();
+        $query->close;
     }
 
     /* public static function updated_code_acta($codigo_registro){

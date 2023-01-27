@@ -145,7 +145,12 @@ $(document).ready(function() {
         console.log(id_assignment_asset);
     });
 
-
+    //ELIMINAR ACTIVO ASIGNADO
+    $('.delete_activo_acta').click(function(){
+        console.log('Eliminar activo asignado');
+        // var id_assignment_asset = $(this).attr("id");
+        // console.log(id_assignment_asset);
+    });
 
 })
 /*TREE ACTIVOS FIJOS ASIGNACION*/
@@ -442,6 +447,9 @@ function table_account_asset(){
         }
     });
 }
+
+
+
 
 
 

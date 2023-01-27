@@ -247,7 +247,23 @@ class assignmentModels{
         return $query->fetchAll();
         $query->close;
     }
-
+    public static function get_asset_code($data){
+        $query = conexion::conectar()->prepare("SELECT aa.id_asignar_activo,aa.id_activo,aa.fecha_registro,aa.codigo_registro,aa.id_asig_ubicacion,aa.tipo_asignacion,au.id_funcionario
+        FROM asig_activo aa LEFT JOIN asig_ubicacion au ON aa.id_asig_ubicacion = au.id_asig_ubicacion 
+        WHERE aa.codigo_registro = :codigo_registro AND au.id_funcionario = :id_employee");
+        $query->bindParam(':codigo_registro',$data['codigo_registro'],PDO::PARAM_INT);
+        $query->bindParam(':id_employee',$data['id_employee'],PDO::PARAM_STR);
+        $query->execute();
+        return $query->fetchAll();
+        $query->close;
+    }
+    public static function eliminar_activo_acta($data){
+        $query = conexion::conectar()->prepare("DELETE FROM asig_activo WHERE id_asignar_activo =:id_asignar_activo");
+        $query->bindParam(':id_asignar_activo',$data, PDO::PARAM_INT);
+        $query->execute();
+        return $query;
+        $query->close;
+    }
 }
 
 
